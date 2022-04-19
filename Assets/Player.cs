@@ -23,7 +23,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-      //  animator = player.GetComponent<Animator>();
+        Camera cam = GetComponentInChildren<Camera>();
+
+        //  animator = player.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,7 +35,24 @@ public class Player : MonoBehaviour
         movement.z = Input.GetAxis("Vertical");
 
         transform.Translate(movement.x * speed, 0, movement.z * speed);
-       // animator.SetFloat("walkSpeed", 10);
+        // animator.SetFloat("walkSpeed", 10);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit Hitinfo;
+            Vector3 point = new Vector3(cam.pixelWidth / 2, cam.pixelHeight / 2, 0);
+            Ray ray = cam.ScreenPointToRay(point);
+            if (Physics.Raycast(ray.origin, ray.direction, out Hitinfo))
+            {
+                if(Hitinfo.transform.tag=="Enemy")
+                {
+                    Destroy(Hitinfo.transform.gameObject);
+                }
+                
+              
+
+            }
+        }
 
     }
     private void FixedUpdate()
@@ -55,7 +74,7 @@ public class Player : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
         transform.rotation = transform.rotation * Quaternion.Euler(0, mouseX * rotationSpeed, 0);
-        Camera cam = GetComponentInChildren<Camera>();
+        
         cam.transform.localRotation = ClampRotationOfPlayer(Quaternion.Euler(-mouseY, 0, 0) * cam.transform.localRotation);
     }
 
