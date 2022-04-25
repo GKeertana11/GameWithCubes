@@ -31,11 +31,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxis("Horizontal");
+       movement.x = Input.GetAxis("Horizontal");
         movement.z = Input.GetAxis("Vertical");
 
         transform.Translate(movement.x * speed, 0, movement.z * speed);
-        // animator.SetFloat("walkSpeed", 10);
+        // animator.SetFloat("walkSpeed", 10);*/
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpforce);
         }
-        /* mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
+       /*(  mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
          mouseY = Input.GetAxis("Mouse Y") * rotationSpeed;
          playerRotation = Quaternion.Euler(0, movement.y, 0) * playerRotation;
          camRotation = ClampRotationOfPlayer(Quaternion.Euler(-movement.x, 0, 0) * camRotation);
